@@ -3,6 +3,7 @@ class Solution {
              int i =0; 
              int n = nums.length;
             k = k % nums.length;
+        System.out.println(k);
             nums = reverse(nums,i,n-1);
             nums = reverse(nums, i, k-1);
             nums = reverse(nums,k,n-1);
