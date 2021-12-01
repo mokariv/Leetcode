@@ -3,22 +3,23 @@ class Solution {
         if(matrix == null || matrix.length <=0){
             return false;
         }
-        int rows = matrix.length-1;
-        int colums = matrix[0].length-1;
-        System.out.println(rows);
-        for(int i=0 ;i<=rows; i++){
-            for(int j = colums ; j>=0 ; j--){
-                if(matrix[i][j] == target){
-                    return true;
-                }
-                else if(target<matrix[i][j]){
-                    continue;
-                }
-                else{
-                    break;
-                }  
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int low = 0;
+        int high = m*n-1;
+        while(low<=high){
+            int mid = low +(high-low)/2;
+            int r = mid/n;
+            int c = mid%n;
+            if(matrix[r][c] == target){
+                return true;
+            }
+            else if(target < matrix[r][c]){
+                high = mid-1;
+            }else{
+                low = mid+1;
             }
         }
         return false;
-    }
+}
 }
