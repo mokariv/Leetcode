@@ -1,35 +1,43 @@
-
-public class Solution {
-    public int[][] updateMatrix(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        
-        Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    queue.offer(new int[] {i, j});
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        if(mat == null){
+            return mat;
+        }
+        int m = mat.length;
+        int n = mat[0].length;
+        int dir [][] = new int[][] {{1,0},{-1,0},{0,1},{0,-1}};
+        Queue<int[]> q = new LinkedList<>();
+        for(int i =0; i<m ;i++){
+            for(int j =0 ; j<n ;j ++){
+                if(mat[i][j] == 0 ){
+                    q.add(new int[]{i,j});
+                }else{
+                    mat[i][j] = -1;
                 }
-                else {
-                    matrix[i][j] = Integer.MAX_VALUE;
-                }
+                
             }
         }
-        
-        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        
-        while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            for (int[] d : dirs) {
-                int r = cell[0] + d[0];
-                int c = cell[1] + d[1];
-                if (r < 0 || r >= m || c < 0 || c >= n || 
-                    matrix[r][c] <= matrix[cell[0]][cell[1]] + 1) continue;
-                queue.add(new int[] {r, c});
-                matrix[r][c] = matrix[cell[0]][cell[1]] + 1;
+        int level = 0;
+        while(!q.isEmpty()){
+            level++;
+            int size = q.size();
+            for(int i =0 ;i<size ; i++){
+                int [] current = q.poll();
+                int current_row = current[0];
+                int current_column = current[1];
+                for(int present []: dir){
+                    int peresnt_row =  present[0]+current_row;
+                    int present_column = present[1]+current_column;
+                    if(peresnt_row >= 0 && present_column >= 0 && peresnt_row < m && 
+                    present_column < n && mat[peresnt_row][present_column] == -1){
+                        mat[peresnt_row][present_column] = level;
+                        q.add(new int[]{peresnt_row, present_column});
+                    }
+                }     
             }
         }
+    
+        return mat;
         
-        return matrix;
     }
 }
