@@ -1,28 +1,28 @@
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        m--;
-        n--;
-        int index = nums1.length -1;      
-        while(index >= 0){
-            if(m < 0){
-                nums1[index--] = nums2[n--];
-            }
-            else if(n<0){
-                nums1[index--] = nums1[m--];      
-            }else{
-                if(nums1[m] > nums2[n]){
-                    nums1[index--] = nums1[m--];
-                }else {
-                    nums1[index--] = nums2[n--];
-                }
-            }
-            
+        if(nums1 == null || nums1.length ==0){
+            return;
         }
-
+        int ptr1 = m-1;
+        int ptr2 = n-1;
+        int i = m+n-1;
+        while(ptr1>=0 && ptr2>=0)
+        {
+            if(nums1[ptr1]> nums2[ptr2]){
+                nums1[i]=nums1[ptr1];
+                ptr1--;
+            }
+            else{
+                 nums1[i]=nums2[ptr2];
+                ptr2--;
+            }
+            i--;
+        }
+        while(ptr2>=0){
+            nums1[i]=nums2[ptr2];
+            i--;
+            ptr2--;
+        }
+ 
+    }
 }
-}
-/*
-[1,2,3,0,0,0]
-[2,5,6]
-
-*/
