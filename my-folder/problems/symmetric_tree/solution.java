@@ -14,27 +14,24 @@
  * }
  */
 class Solution {
-    boolean isValid  = true;
+    boolean isValid = true;
     public boolean isSymmetric(TreeNode root) {
-        if( root == null){
+        if(root == null){
             return isValid;
         }
-        dfs(root.left, root.right);
-        return isValid;
-        
-    }
-    private void dfs(TreeNode n1 , TreeNode n2 ){
-        
-        if(n1 == null && n2 == null){
+    dfs(root.left, root.right);
+    return isValid;
+}
+    void dfs(TreeNode left, TreeNode right){
+        if(left == null && right == null){
             return;
         }
-        if(n1 == null || n2 == null || n1.val != n2.val){
+        else if(left == null || right == null || left.val != right.val){
             isValid = false;
             return;
         }
-        dfs(n1.left, n2.right);
-        dfs(n1.right, n2.left);
+        dfs(left.left, right.right);
+        dfs(left.right,right.left);  
     }
-    
-    
 }
+    
