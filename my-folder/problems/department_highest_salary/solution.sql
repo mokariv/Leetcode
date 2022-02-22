@@ -1,10 +1,11 @@
-/* Write your T-SQL query statement below */
-with cte as(
-select e.id, e.name, e.salary, e.departmentId, dense_rank() over (partition by e.departmentId order by e.salary desc) as rank
-from employee e
+# Write your MySQL query statement below
+with ctesalary as (
+select e.name as Employee, e.salary, d.name as Department, dense_rank() over(partition by e.departmentId order by e.salary desc) rank1
+from Employee as e, Department as d
+where e.departmentId = d.id
 )
+select Employee, Department, salary 
+from ctesalary 
+where rank1 =1
 
-select d.name as Department, c.name as Employee, c.salary from cte c
-join department d 
-on c.departmentId = d.id
-where rank = 1
+    
