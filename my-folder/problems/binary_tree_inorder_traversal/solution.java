@@ -38,13 +38,19 @@ public List<Integer> inorderTraversal(TreeNode root) {
 
 class Solution {
     List<Integer> list = new ArrayList<>();
+    Stack<TreeNode> stack = new Stack<>();
 public List<Integer> inorderTraversal(TreeNode root) {
-    if(root == null){
-          return list;
-        }
-    inorderTraversal(root.left);
-    list.add(root.val);
-    inorderTraversal(root.right);
-    return list;
+   while(!stack.isEmpty() || root !=null){
+    while(root!= null){
+        stack.push(root);
+        root = root.left;  
     }
+     root = stack.pop();
+     list.add(root.val);
+     root = root.right;
+     
+   }
+    return list;
 }
+}
+
