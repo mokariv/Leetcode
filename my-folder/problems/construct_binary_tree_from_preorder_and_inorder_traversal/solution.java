@@ -20,21 +20,22 @@ class Solution {
         }
         TreeNode root = new TreeNode(preorder[0]);
         int rootIndex = -1;
-        for(int i= 0 ;i<inorder.length; i++){
-            if(preorder[0] == inorder[i]){
-                rootIndex=i;
+        for(int i = 0; i<inorder.length ; i++){
+            if(root.val == inorder[i]){
+                rootIndex = i;
                 break;
             }
         }
-        int []inorderLeft = Arrays.copyOfRange(inorder,0 ,rootIndex);
-        int []inorderRight =Arrays.copyOfRange(inorder,rootIndex+1,inorder.length);
-        int [] preorderLeft = Arrays.copyOfRange(preorder,1,rootIndex+1);
-        int [] preorderRight = Arrays.copyOfRange(preorder,rootIndex+1, preorder.length);
-        
-        root.left = buildTree(preorderLeft,inorderLeft);
+    int [] inorderleft = Arrays.copyOfRange(inorder,0, rootIndex);
+    int [] inorderRight = Arrays.copyOfRange(inorder,rootIndex+1, inorder.length);
+    int [] preorderLeft = Arrays.copyOfRange(preorder,1,rootIndex+1);
+    int [] preorderRight = Arrays.copyOfRange(preorder,rootIndex+1, preorder.length);
+        root.left = buildTree(preorderLeft,inorderleft);
         root.right = buildTree(preorderRight,inorderRight);
         
         return root;
+        
+        
         
         
     }
